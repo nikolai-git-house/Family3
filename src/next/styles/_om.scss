@@ -1,0 +1,130 @@
+/*
+om-type - mixin, generating font-size/line-height pairs for all breakpoints and scales
+!!! подгонять заголовки под вертикальный ритм не с помощью вычисления высоты строки, а с помощью padding
+om-property - mixin, generate vertical rhythm values for given properties for all breakpoints
+om-value - function, generate vertical rhythm value for specified breakpoint
+
+shape of global config item: (N px, (N px N unitless), N unitless) - oprder is not important
+                              ↑          ↑             ^-- modular scale
+                            width  font-size/line-height pair
+shape of type config item: (N px N unitless)
+                                ↑
+                        font-size/line-height pair
+
+ */
+
+@import "~modularscale-sass";
+
+$_om-config: () !default;
+$_om-names: () !default;
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function get-config-by-n($n) {
+  @return map-get($_om-config, nth($_om-names, $n));
+}
+
+@function get-config-by-name($name) {
+  @return map-get($_om-config, $name);
+}
+
+@function aligned-line-height($fs, $lh, $base-lh) {
+  $base-lh-fraction: $base-lh / 4;
+  $aligned-lh: $base-lh-fraction * round(($fs * $lh) / $base-lh-fraction) / $fs;
+
+  @if $aligned-lh < 1 {
+    $aligned-lh: $base-hlh * ceil(($fs * $lh) / $base-hlh) / $fs;
+  }
+
+  @return $aligned-lh;
+}
+
+@mixin baseline-grid(
+  $offset: 0,
+  $baseline: 1rem,
+  $color: rgba(blue, 0.25)
+) {
+  background-image: linear-gradient(to bottom, $color 1px, transparent 0, transparent $baseline), linear-gradient(to bottom, rgba(blue, 0.1) 1px, transparent 0, transparent ($baseline / 2));
+  background-size: 100% $baseline;
+  background-position: 0 $offset, 0 ($baseline / 2);
+}
+
+@mixin om-config($config...) {
+  $_om-config: keywords($config) !global;
+  $_om-names: map-keys($_om-config) !global;
+}
+
+@mixin om-init() {
+  $base: get-config-by-n(1);
+
+  html {
+    font-size: map-get($base, font-size) / 16px * 100%;
+    line-height: map-get($base, line-height);
+
+    @for $n from 2 through length($_om-names) {
+      $previous: get-config-by-n($n - 1);
+      $current: get-config-by-n($n);
+      @media (min-width: map-get($previous, width) + 1px) {
+        font-size: map-get($current, font-size) / 16px * 100%;
+        line-height: map-get($current, line-height);
+      }
+    }
+  }
+}
+
+@mixin om-vr($prop, $mul) {
+  $base: get-config-by-n(1);
+
+  #{$prop}: $mul * map-get($base, line-height) * 1rem;
+
+  @for $n from 2 through length($_om-names) {
+    $previous: get-config-by-n($n - 1);
+    $current: get-config-by-n($n);
+    @media (min-width: map-get($previous, width) + 1px) {
+      #{$prop}: $mul * map-get($current, line-height) * 1rem;
+    }
+  }
+
+}
+
+@mixin om-type($config...) {
+  $cfg: keywords($config);
+  $cfg-names: map-keys($cfg);
+
+  $cfg-base: map-get($cfg, nth($cfg-names, 1));
+  $base: get-config-by-name(nth($cfg-names, 1));
+
+  $fs: nth($cfg-base, 1);
+
+  @if unitless($fs) == true {
+    $fs: ms($fs, 1rem, map-get($base, ms));
+  }
+
+  $aligned-lh: aligned-line-height($fs, nth($cfg-base, 2), map-get($base, line-height));
+  // map-get($base, line-height) * round(($fs * nth($cfg-base, 2)) / map-get($base, line-height)) / $fs;
+
+  font-size: $fs;
+  line-height: $aligned-lh;
+
+  @for $n from 2 through length($cfg-names) {
+    $previous: get-config-by-name(nth($cfg-names, $n - 1));
+    $current: get-config-by-name(nth($cfg-names, $n));
+    $cfg-current: map-get($cfg, nth($cfg-names, $n));
+
+    @media (min-width: map-get($previous, width) + 1px) {
+      $fs: nth($cfg-current, 1);
+
+      @if unitless($fs) == true {
+        $fs: ms(nth($cfg-current, 1), 1rem, map-get($current, ms));
+      }
+
+      $aligned-lh: aligned-line-height($fs, nth($cfg-current, 2), map-get($current, line-height));
+      // map-get($current, line-height) * round(($fs * nth($cfg-current, 2)) / map-get($current, line-height)) / $fs;
+
+      font-size: $fs;
+      line-height: $aligned-lh;
+    }
+  }
+}

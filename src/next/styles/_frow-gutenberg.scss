@@ -1,0 +1,30 @@
+// HTML basics (Minor styling/resets of anchor links, h1-h6, etc.)
+$frow-enable-html-basics:                false;
+
+// Columns/Grid functionality
+$frow-enable-columns:                    true;
+
+// Button styling
+$frow-enable-buttons:                    false;
+
+// Form elements
+$frow-enable-forms:                      false;
+
+// Responsive design rules
+$frow-enable-responsive-design-classes:  true;
+
+// Margin/Padding classes (.mb-10, .p-15, .mx-auto)
+$frow-enable-box-model-shorcuts:         false;
+
+// Miscellaneous utilities
+$frow-enable-utilities:                  true;
+
+// Maximum Number of columns to support (.col-md-1-12)
+$grid-max-columns: 10;
+
+// Gutter width between columns when using .gutters
+$grid-gutter-width: 30px;
+
+@import '~frow/frow.sass';
+
+@import './_frow-extra.scss'

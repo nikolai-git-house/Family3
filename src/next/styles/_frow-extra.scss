@@ -1,0 +1,39 @@
+@media (min-width: 0px) {
+  .frow .col-xs-auto {
+    width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .frow .col-sm-auto {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .frow .col-md-auto {
+    width: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .frow .col-lg-auto {
+    width: auto;
+  }
+}
+
+.frow .self-center {
+  align-self: center;
+}
+.frow .self-baseline {
+  align-self: baseline;
+}
+.frow .self-start {
+  align-self: flex-start;
+}
+.frow .self-end {
+  align-self: flex-end;
+}
+.frow .self-stretch {
+  align-self: stretch;
+}

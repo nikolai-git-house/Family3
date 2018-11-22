@@ -1,0 +1,24 @@
+@import "./_om.scss";
+
+@include om-config(
+  $xs: (
+    width: 767px,
+    font-size: 12px,
+    line-height: 16/12,
+    ms: 1.333
+  ),
+  $sm: (
+    width: 991px,
+    font-size: 18px,
+    line-height: 24/18,
+    ms: 1.414
+  ),
+  $md: (
+    width: 1199px,
+    font-size: 18px,
+    line-height: 24/18,
+    ms: 1.618
+  )
+);
+
+@include om-init;

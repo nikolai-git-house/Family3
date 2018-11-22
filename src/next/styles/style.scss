@@ -1,0 +1,186 @@
+@import "./_frow.scss";
+@import "./_om-init.scss";
+@import "./_ya-search.scss";
+@import "~ilyabirman-likely/release/likely.css";
+
+// @import url('https://fonts.googleapis.com/css?family=Noto+Serif:400,700|Roboto:300,400,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif:400,700|Open+Sans:300,400,600,700&subset=cyrillic');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  // @include baseline-grid($baseline: 1.33333rem);
+}
+
+.baseline-grid {
+  @include baseline-grid($baseline: 1.33333rem);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+}
+
+p {
+  margin-top: 0;
+  @include om-vr(margin-bottom, 1);
+}
+
+button, input, optgroup, select, textarea {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: calc(16 / 12);
+}
+
+a {
+  text-decoration: underline;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li ul {
+  padding-left: 2rem;
+}
+
+ul li {
+  list-style: none;
+  @include om-vr(margin-bottom, 1);
+}
+
+ul li::before {
+  content: "•";
+  color: #ec6b58;
+  margin-right: 0.66667rem;
+}
+
+h1 > a, h2 > a, h3 > a {
+  text-decoration: none;
+}
+
+h1 > a:hover, h2 > a:hover, h3 > a:hover {
+  text-decoration: underline;
+}
+
+h1, h1 > a {
+  font-weight: 300;
+  color: #4b4b4b;
+
+  @include om-type(
+    $xs: (1.66667rem, 1.5), // 20px, 30px
+    $sm: (1.66667rem, 1.5),
+    $md: (2.88889rem, 1.4615) //52px, 76px
+  );
+
+  @include om-vr(margin-bottom, 1.5);
+}
+
+h2, h2 > a {
+  font-weight: 400;
+  color: #3c3c3c;
+
+  @include om-type(
+    $xs: (1.66667rem, 1.4), // 20px, 28px
+    $sm: (1.66667rem, 1.4),
+    $md: (2.22222rem, 1.2) // 40px, 48px
+  );
+
+  @include om-vr(margin-bottom, 1);
+}
+
+h2.list-header, h2.list-header > a {
+  font-weight: 300;
+  color: #3c3c3c;
+
+  @include om-type(
+    $xs: (1.66667rem, 1.2), // 20px, 24px
+    $sm: (1.66667rem, 1.2),
+    $md: (1.77778rem, 1.1875) // 32px, 38px
+  );
+
+  @include om-vr(margin-bottom, 0.5);
+}
+
+h3, h3 > a {
+  font-weight: 400;
+  color: #000;
+
+  @include om-type(
+    $xs: (1.33333rem, 1.6), // 16px, 27px
+    $sm: (1.33333rem, 1.5),
+    $md: (1.55555rem, 1.714) // 28px, 48px
+  );
+
+  @include om-vr(margin-bottom, 1);
+}
+
+
+h4, h5, h6 {
+  font-weight: 600;
+  color: #000;
+
+  @include om-type(
+    $xs: (0.83333rem, 2), // 10px, 18px
+    $sm: (1rem, 1.5),
+    $md: (1rem, 1.77778) // 18px, 32px
+  );
+
+  @include om-vr(margin-bottom, 1);
+}
+
+.sitebox {
+  min-height: 100vh;
+}
+
+.sitebox > * > * {
+  padding: 0 15px;
+}
+
+.unbox {
+  margin: 0 -15px;
+  padding: 0 15px;
+}
+
+img.alignright { float: right; margin: 0 0 1rem 1rem; }
+img.alignleft { float: left; margin: 0 1rem 1rem 0; }
+img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignright { float: right; }
+.alignleft { float: left; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+
+img {
+  max-width: 100%;
+}
+
+@media (min-width: 971px) {
+  .sitebox > * > * {
+    padding: 0 calc(50vw - 485px);
+  }
+
+  .unbox {
+    margin: 0 calc((50vw - 485px) * -1);
+    padding: 0 calc(50vw - 485px);
+  }
+
+  img {
+    max-width: 970px;
+  }
+
+  button, input, optgroup, select, textarea {
+    font-size: 1rem;
+    line-height: calc(20 / 16);
+  }
+
+}
+
+
+
+// @media screen and (-webkit-min-device-pixel-ratio:0) {
+//   select,
+//   textarea,
+//   input {
+//     font-size: 16px !important;
+//   }
+// }

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightedBlock renders 1`] = `
+<section
+  className="frow jsx-2877306380 highlighted"
+  style={
+    Object {
+      "flexGrow": undefined,
+      "flexShrink": undefined,
+    }
+  }
+>
+  <div
+    className="col-xs-8-10 col-md-8-10"
+    style={
+      Object {
+        "flexGrow": undefined,
+        "flexShrink": undefined,
+      }
+    }
+  >
+    test
+  </div>
+</section>
+`;
